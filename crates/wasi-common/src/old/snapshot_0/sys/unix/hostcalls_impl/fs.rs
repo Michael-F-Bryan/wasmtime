@@ -329,7 +329,7 @@ pub(crate) fn fd_readdir<'a>(
         dir.rewind();
     } else {
         log::trace!("     | fd_readdir: doing seekdir to {}", cookie);
-        let loc = unsafe { SeekLoc::from_raw(cookie as i64)? };
+        let loc = SeekLoc::from_raw(cookie as i64);
         dir.seek(loc);
     }
 
@@ -343,7 +343,7 @@ pub(crate) fn fd_readdir<'a>(
                 .to_owned(),
             ino: entry.ino(),
             ftype: entry.file_type().into(),
-            cookie: entry.seek_loc()?.to_raw().try_into()?,
+            cookie: entry.seek_loc().to_raw().try_into()?,
         })
     }))
 }

@@ -84,18 +84,22 @@ impl Entry {
 
     /// Returns the type of this directory entry.
     pub fn file_type(&self) -> FileType {
-        unsafe { FileType::from_raw(self.0.d_type) }
+        FileType::from_raw(self.0.d_type)
     }
 }
 
 #[cfg(not(target_os = "android"))]
 #[derive(Clone, Copy, Debug)]
-pub struct SeekLoc(pub(crate) libc::c_long);
+pub struct SeekLoc(i64);
 
 #[cfg(not(target_os = "android"))]
 impl SeekLoc {
+    pub fn from_raw(loc: i64) -> Self {
+        Self(loc)
+    }
+
     pub fn to_raw(&self) -> i64 {
-        self.0.into()
+        self.0
     }
 }
 
@@ -113,7 +117,7 @@ pub enum FileType {
 }
 
 impl FileType {
-    pub unsafe fn from_raw(file_type: u8) -> Self {
+    pub fn from_raw(file_type: u8) -> Self {
         match file_type {
             libc::DT_CHR => Self::CharacterDevice,
             libc::DT_DIR => Self::Directory,

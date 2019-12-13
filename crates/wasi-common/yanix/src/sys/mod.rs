@@ -1,4 +1,4 @@
-use crate::{dir::SeekLoc, Result};
+use crate::{dir::SeekLoc};
 use cfg_if::cfg_if;
 
 cfg_if! {
@@ -24,5 +24,5 @@ cfg_if! {
 
 pub trait EntryExt {
     fn ino(&self) -> u64;
-    fn seek_loc(&self) -> Result<SeekLoc>;
+    fn seek_loc(&self) -> SeekLoc;
 }

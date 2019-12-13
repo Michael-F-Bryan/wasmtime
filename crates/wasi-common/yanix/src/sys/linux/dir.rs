@@ -20,8 +20,8 @@ impl EntryExt for Entry {
         self.0.d_ino.into()
     }
 
-    fn seek_loc(&self) -> Result<SeekLoc> {
-        unsafe { SeekLoc::from_raw(self.0.d_off) }
+    fn seek_loc(&self) -> SeekLoc {
+        SeekLoc::from_raw(self.0.d_off)
     }
 }
 

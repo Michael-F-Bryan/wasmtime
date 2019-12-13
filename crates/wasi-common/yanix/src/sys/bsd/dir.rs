@@ -46,8 +46,8 @@ impl EntryExt for Entry {
         self.0.d_ino.into()
     }
 
-    fn seek_loc(&self) -> Result<SeekLoc> {
-        Ok(self.0.loc)
+    fn seek_loc(&self) -> SeekLoc {
+        self.0.loc
     }
 }
 
